@@ -17,17 +17,9 @@ RUN cd /sdk-install && unzip ./sdk-tools-*.zip && chmod +x ./tools//bin/sdkmanag
 RUN yes | /sdk-install/tools/bin/sdkmanager --licenses
 RUN /sdk-install/tools/bin/sdkmanager --update
 RUN /sdk-install/tools/bin/sdkmanager "platform-tools" "platforms;android-28" "build-tools;28.0.3"
-RUN mkdir -p /ndk/ && cd /ndk/ && wget ${NDK_DL} && unzip -q android-ndk*.zip
 
-# Get CrystaX NDK:
-RUN mkdir -p /crystax-ndk && cd /crystax-ndk && wget --no-verbose https://www.crystax.net/download/${CRYSTAX_FILE}.tar.xz -O crystax.tar.xz && tar xf crystax.tar.xz \
-    --exclude='crystax-ndk-*/docs'\
-    --exclude='crystax-ndk-*/samples'\
-    --exclude='crystax-ndk-*/tests'\
-    --exclude='crystax-ndk-*/llvm*'\
-    --strip-components=1 \
-    && rm /crystax-ndk/crystax.tar.xz
-RUN ln -s /usr/bin/python3 /usr/bin/python3.5
+# Obtain Android NDK:
+RUN mkdir -p /ndk/ && cd /ndk/ && wget ${NDK_DL} && unzip -q android-ndk*.zip
 
 # Install p4a:
 RUN {P4A_INSTALL_CMD}
@@ -43,7 +35,7 @@ print("ANDROIDAPI=28" +\n\
     " ANDROIDSDK=/sdk-install/ ANDROIDNDK=/ndk/" +\n\
     " bash")' > /cmdline.py
 
-CMD ["bash", "-c", "`python3 /cmdline.py`"]
+CMD ["bash", "-c", "bash -c \"`python3 /cmdline.py`\""]
 
 
 
