@@ -11,7 +11,7 @@ combinations quickly.
 
 #### Interactive Environment Choice
 
-Run `./testenv.py` which will ask you for the environment interactively.
+Run `./p4aspaces.py` which will ask you for the environment interactively.
 After setup has completed, you will be dropped to a `bash` shell inside
 your testing environment!
 
@@ -19,10 +19,10 @@ your testing environment!
 
 You can choose an environment with launch arguments right away:
 
-Example: `./testenv.py --env p4a-py3-api18ndk21 --p4a master`
+Example: `./p4aspaces.py --env p4a-py3-api18ndk21 --p4a master`
 
 (Uses `p4a`'s master branch from github with environment
-`p4a-py3-api18ndk21`. Use `./testenv.py --list-environments` for
+`p4a-py3-api18ndk21`. Use `./p4aspaces.py --list-environments` for
 a full list.)
 
 #### Cleanup
