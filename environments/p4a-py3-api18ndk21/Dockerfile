@@ -19,23 +19,15 @@ RUN /sdk-install/tools/bin/sdkmanager --update
 RUN /sdk-install/tools/bin/sdkmanager "platform-tools" "platforms;android-28" "build-tools;28.0.3"
 
 # Obtain Android NDK:
-RUN mkdir -p /ndk/ && cd /ndk/ && wget ${NDK_DL} && unzip -q android-ndk*.zip
+RUN mkdir -p /tmp/ndk/ && cd /tmp/ndk/ && wget ${NDK_DL} && unzip -q android-ndk*.zip && mv android-*/ /ndk/
 
 # Install p4a:
 RUN {P4A_INSTALL_CMD}
 
-# Final command line preparation:
-RUN echo '#!/usr/bin/python3\n\
-import json\n\
-print("ANDROIDAPI=28" +\n\
-    " ANDROIDNDKVER=r17c" +\n\
-    " NDKAPI=21" +\n\
-    " GRADLE_OPTS=\"-Xms1724m -Xmx5048m -Dorg.gradle.jvmargs='"'"'-Xms1724m -Xmx5048m'"'"'\""+\n\
-    " JAVA_OPTS=\"-Xms1724m -Xmx5048m\"" +\n\
-    " ANDROIDSDK=/sdk-install/ ANDROIDNDK=/ndk/" +\n\
-    " bash")' > /cmdline.py
+# Install buildozer:
+RUN pip3 install -U buildozer
 
-CMD ["bash", "-c", "bash -c \"`python3 /cmdline.py`\""]
+{TEST_APP_INSTRUCTIONS}
 
 
 

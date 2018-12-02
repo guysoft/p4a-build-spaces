@@ -31,15 +31,7 @@ RUN ln -s /usr/bin/python3 /usr/bin/python3.5
 # Install p4a:
 RUN {P4A_INSTALL_CMD}
 
-# Final command line preparation:
-RUN echo '#!/usr/bin/python3\n\
-import json\n\
-print("ANDROIDAPI=19" +\n\
-    " GRADLE_OPTS=\"-Xms1724m -Xmx5048m -Dorg.gradle.jvmargs='"'"'-Xms1724m -Xmx5048m'"'"'\""+\n\
-    " JAVA_OPTS=\"-Xms1724m -Xmx5048m\"" +\n\
-    " ANDROIDSDK=/sdk-install/ ANDROIDNDK=/crystax-ndk/" +\n\
-    " bash")' > /cmdline.py
+{TEST_APP_INSTRUCTIONS}
 
-CMD ["bash", "-c", "bash -c \"`python3 /cmdline.py`\""]
 
 

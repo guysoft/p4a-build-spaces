@@ -1,0 +1,21 @@
+
+# Get the kivy tes app:
+RUN mkdir -p /tmp/test-app/ && cd /tmp/test-app && git clone https://github.com/kivy/python-for-android/ .
+RUN cp -R /tmp/test-app/testapps/testapp_keyboard/ /root/testapp/
+
+# Final command line preparation:
+RUN echo '#!/usr/bin/python3\n\
+import json\n\
+print("echo \"\"")\n\
+print("echo \"To build a kivy demo app, use this command:\"")\n\
+print("echo \"cd ~/testapp && p4a apk --arch=armeabi-v7a  --requirements=kivy,python3\"")\n\
+print("ANDROIDAPI=28" +\n\
+    " ANDROIDNDKVER=r17c" +\n\
+    " NDKAPI=21" +\n\
+    " GRADLE_OPTS=\"-Xms1724m -Xmx5048m -Dorg.gradle.jvmargs='"'"'-Xms1724m -Xmx5048m'"'"'\""+\n\
+    " JAVA_OPTS=\"-Xms1724m -Xmx5048m\"" +\n\
+    " ANDROIDSDK=/sdk-install/ ANDROIDNDK=/ndk/" +\n\
+    " bash")' > /cmdline.py
+
+CMD bash -c "`python3 /cmdline.py`"
+

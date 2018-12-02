@@ -84,11 +84,15 @@ def main():
     image_name = "p4atestenv-" + str(env)
     temp_d = tempfile.mkdtemp(prefix="p4a-testing-space-")
     try:
+        with open(os.path.join(envs_dir, "test_app_instructions.txt"),
+                  "r") as f:
+            test_app_instructions = f.read().strip()
         with open(os.path.join(envs_dir, env, "Dockerfile"), "r") as f:
             with open(os.path.join(temp_d, "Dockerfile"), "w") as f2:
                 f2.write(f.read().replace("{P4A_INSTALL_CMD}",
                     "pip3 install -U '" + str(
-                    dl_target.replace("'", "'\"'\"'")) + "'"))
+                    dl_target.replace("'", "'\"'\"'")) + "'").replace(
+                    "{TEST_APP_INSTRUCTIONS}", test_app_instructions))
         # Build container:
         cmd = ["docker", "build",
             "-t", image_name, "--file", os.path.join(
