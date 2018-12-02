@@ -1,13 +1,31 @@
 #!/usr/bin/python3
 
+import argparse
 import os
 import shutil
 import subprocess
 import sys
 import tempfile
 import uuid
+import urllib.parse
 
 def main():
+    argparser = argparse.ArgumentParser()
+    argparser.add_argument("--list-environments",
+        default=False, action="store_true",
+        help="Just list all environments and then exit",
+        dest="list_envs")
+    argparser.add_argument("--env",
+        default=None, nargs="?",
+        help="Specify an environment to use. If not specified, " +
+        "it will be prompted for interactively", dest="env")
+    argparser.add_argument("--p4a-url",
+        default=None, nargs="?",
+        help="Specify p4a release archive to use, or the branch " +
+        "name (like 'master'). Will be prompted for interactively " +
+        "if unspecified", dest="p4a_url")
+    args = argparser.parse_args()
+
     # Test docker availability:
     try:
         output = subprocess.check_output(["docker", "ps"],
@@ -18,6 +36,7 @@ def main():
             file=sys.stderr, flush=True)
         sys.exit(1)
 
+    # List environments:
     envs_dir = os.path.abspath(os.path.join(
         os.path.dirname(__file__), "environments"))
     envs = [p for p in os.listdir(envs_dir) if (
@@ -25,29 +44,44 @@ def main():
         os.path.exists(os.path.join(envs_dir, p,
                                     "short_description.txt")) and
         not p.startswith("."))]
-    print("Available environments:")
-    for env in sorted(envs):
-        desc = open(os.path.join(envs_dir, env, "short_description.txt"), "r",
-                    encoding="utf-8").read().strip().partition("\n")[0]
-        print(" " + env + "\n     " + desc)
-    print("")
-    env = input("Please choose your environment [default=None]:")
+    if args.env is None or args.list_envs:
+        print("Available environments:")
+        for env in sorted(envs):
+            desc = open(os.path.join(envs_dir, env, "short_description.txt"), "r",
+                        encoding="utf-8").read().strip().partition("\n")[0]
+            print(" " + env + "\n     " + desc)
+    if args.list_envs:
+        sys.exit(0)
+
+    # Choose environment:
+    if args.env is None:
+        print("")
+        env = input("Please choose your environment [default=None]:")
+    else:
+        env = args.env
     if not str(env) in envs:
         print("ERROR: Not a known environment. Aborting.",
               file=sys.stderr, flush=True)
         sys.exit(1)
     assert(os.path.exists(os.path.join(envs_dir, env)))
 
+    # Choose download target:
     dl_target = None
-    dl_input = input("Please choose the p4a version to use\n" +
-        "    [default=https://github.com/kivy/python-for-android/archive/master.zip]:")
+    if args.p4a_url is None:
+        dl_input = input("Please choose the p4a url download or branch to use\n" +
+            "    [default=https://github.com/kivy/python-for-android/archive/master.zip]:")
+    else:
+        dl_input = args.p4a_url
     if dl_input is None or len(dl_input.strip()) == 0:
         dl_target = "https://github.com/kivy/python-for-android/archive/master.zip"
+    elif dl_input.find("/") < 0 and dl_input.find("\\") < 0:  # probably a branch
+        dl_target = "https://github.com/kivy/python-for-android/archive/" +\
+            urllib.parse.quote(dl_input) + ".zip"
     else:
         dl_target = str(dl_input).strip()
 
     # Launch it:
-    image_name = "p4atestenv-" + str(uuid.uuid4()).replace("-", "")
+    image_name = "p4atestenv-" + str(env)
     temp_d = tempfile.mkdtemp(prefix="p4a-testing-space-")
     try:
         with open(os.path.join(envs_dir, env, "Dockerfile"), "r") as f:
