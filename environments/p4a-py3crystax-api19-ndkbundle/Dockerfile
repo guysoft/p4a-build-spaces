@@ -40,7 +40,6 @@ print("ANDROIDAPI=19" +\n\
     " ANDROIDSDK=/sdk-install/ ANDROIDNDK=/crystax-ndk/" +\n\
     " bash")' > /cmdline.py
 
-CMD ["bash", "-c", "`python3 /cmdline.py`"]
-
+CMD ["bash", "-c", "bash -c \"`python3 /cmdline.py`\""]
 
 
