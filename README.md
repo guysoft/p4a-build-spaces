@@ -12,6 +12,8 @@ combinations quickly.
 #### Interactive Environment Choice
 
 Run `./testenv.py` which will ask you for the environment interactively.
+After setup has completed, you will be dropped to a `bash` shell inside
+your testing environment!
 
 #### Arguments Quick Setup
 
@@ -22,4 +24,15 @@ Example: `./testenv.py --env p4a-py3-api18ndk21 --p4a master`
 (Uses `p4a`'s master branch from github with environment
 `p4a-py3-api18ndk21`. Use `./testenv.py --list-environments` for
 a full list.)
+
+#### Cleanup
+
+Please note the docker images will be left around, one per environment
+you used. Also, the containers will be left around.
+
+To clean up, use: `sudo docker system prune`
+
+**(warning: if you use docker for something else, stopped containers
+and unused volumes of that may be removed as well!!)**
+
 
