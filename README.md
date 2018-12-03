@@ -14,7 +14,7 @@ Run:
 `pip install -U https://github.com/JonasT/p4a-build-spaces/archive/master.zip`
 
 ... to install the latest dev version (unstable!).
-**(If you have both Python 2 and Python 3 pip, make sure to install with `pip3`!)**
+**If you have both Python 2 and Python 3 pip, make sure to install with `pip3`!**
 
 ### Launch
 
@@ -37,9 +37,9 @@ Run:
 
 ...or similar, to skip the interactive part and get an env right away.
 
-(Prepares `p4a`'s master branch from github with environment
-`p4a-py3-api28ndk21`. Use `./p4aspaces.py --list-environments` for
-a full list.)
+(This command uses `p4a`'s master branch from github, with environment
+`p4a-py3-api28ndk21`. Use `p4aspaces --list-environments` for
+a full list and a short explanation for each.)
 
 ### Cleanup
 
