@@ -1,12 +1,12 @@
 
 FROM ubuntu
 
-ENV CRYSTAX_FILE="crystax-ndk-10.3.2-linux-x86_64"
 ENV SDK_TOOLS="sdk-tools-linux-4333796.zip"
-ENV NDKVER=10.3.2
-ENV NDKDIR=/crystax-ndk/
-ENV NDKAPI=19
-ENV ANDROIDAPI=19
+ENV NDK_DL="https://dl.google.com/android/repository/android-ndk-r17c-linux-x86_64.zip"
+ENV NDKVER=r17c
+ENV NDKDIR=/ndk/
+ENV NDKAPI=21
+ENV ANDROIDAPI=28
 ENV PIP=pip3
 
 # Basic image upgrade:
@@ -24,20 +24,16 @@ RUN cd /sdk-install && wget https://dl.google.com/android/repository/${SDK_TOOLS
 RUN cd /sdk-install && unzip ./sdk-tools-*.zip && chmod +x ./tools//bin/sdkmanager
 RUN yes | /sdk-install/tools/bin/sdkmanager --licenses
 RUN /sdk-install/tools/bin/sdkmanager --update
-RUN /sdk-install/tools/bin/sdkmanager "platform-tools" "platforms;android-19" "ndk-bundle" "build-tools;25.0.2"
+RUN /sdk-install/tools/bin/sdkmanager "platform-tools" "platforms;android-28" "build-tools;28.0.3"
 
-# Get CrystaX NDK:
-RUN mkdir -p /crystax-ndk && cd /crystax-ndk && wget --no-verbose https://www.crystax.net/download/${CRYSTAX_FILE}.tar.xz -O crystax.tar.xz && tar xf crystax.tar.xz \
-    --exclude='crystax-ndk-*/docs'\
-    --exclude='crystax-ndk-*/samples'\
-    --exclude='crystax-ndk-*/tests'\
-    --exclude='crystax-ndk-*/llvm*'\
-    --strip-components=1 \
-    && rm /crystax-ndk/crystax.tar.xz
-RUN ln -s /usr/bin/python3 /usr/bin/python3.5
+# Obtain Android NDK:
+RUN mkdir -p /tmp/ndk/ && cd /tmp/ndk/ && wget ${NDK_DL} && unzip -q android-ndk*.zip && mv android-*/ /ndk/
 
 # Install p4a:
 RUN {P4A_INSTALL_CMD}
+
+# Install buildozer:
+RUN pip3 install -U buildozer
 
 {TEST_APP_INSTRUCTIONS}
 

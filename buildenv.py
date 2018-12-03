@@ -55,7 +55,7 @@ class BuildEnvironment(object):
             test_app_instructions = f.read().strip()
         with open(os.path.join(self.path, "Dockerfile"), "r") as f:
             return f.read().replace("{P4A_INSTALL_CMD}",
-                "pip3 install -U '" + str(
+                "$PIP install -U '" + str(
                 dl_target.replace("'", "'\"'\"'")) + "'  # " +
                 "p4a build " + str(build_p4a_uuid)).replace(
                 "{TEST_APP_INSTRUCTIONS}", test_app_instructions).replace(
@@ -68,6 +68,8 @@ class BuildEnvironment(object):
             output_file=None):
         # Build container:
         image_name = "p4atestenv-" + str(self.name)
+        container_name = image_name + "-" +\
+            str(uuid.uuid4()).replace("-", "")
         temp_d = tempfile.mkdtemp(prefix="p4a-testing-space-")
         try:
             os.mkdir(os.path.join(temp_d, "output"))
@@ -85,7 +87,8 @@ class BuildEnvironment(object):
                 sys.exit(1)
 
             # Launch shell:
-            cmd = ["docker", "run", "-ti",
+            cmd = ["docker", "run",
+                "--name" + container_name, "-ti",
                 "-v", os.path.join(temp_d, "output") +
                 ":/root/output:rw,Z",
                 image_name]
@@ -97,7 +100,10 @@ class BuildEnvironment(object):
                         shutil.copyfile(full_path, output_file)
                         return
         finally:
-            shutil.rmtree(temp_d)
+            try:
+                os.system("docker kill " + container_name)
+            finally:
+                shutil.rmtree(temp_d)
 
 def get_environments(for_p4a_target="master"):
     envs_dir = os.path.abspath(os.path.join(
