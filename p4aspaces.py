@@ -26,16 +26,6 @@ def main():
         "if unspecified", dest="p4a_url")
     args = argparser.parse_args()
 
-    # Test docker availability:
-    try:
-        output = subprocess.check_output(["docker", "ps"],
-            stderr=subprocess.STDOUT)
-    except subprocess.CalledProcessError as e:
-        print("ERROR: `docker ps` test command failed. " +
-            "Is docker running, and do we have access?",
-            file=sys.stderr, flush=True)
-        sys.exit(1)
-
     # List environments:
     envs_dir = os.path.abspath(os.path.join(
         os.path.dirname(__file__), "environments"))
@@ -52,6 +42,16 @@ def main():
             print(" " + env + "\n     " + desc)
     if args.list_envs:
         sys.exit(0)
+
+    # Test docker availability:
+    try:
+        output = subprocess.check_output(["docker", "ps"],
+            stderr=subprocess.STDOUT)
+    except subprocess.CalledProcessError as e:
+        print("ERROR: `docker ps` test command failed. " +
+            "Is docker running, and do we have access?",
+            file=sys.stderr, flush=True)
+        sys.exit(1)
 
     # Choose environment:
     if args.env is None:

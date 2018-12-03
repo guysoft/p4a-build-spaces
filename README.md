@@ -1,11 +1,11 @@
 
-## p4a testing spaces
+## p4a build spaces
 
 This project contains a script & various Dockerfile's to launch an interactive
-shell with a reproducible environment with python-for-android.
+shell with a reproducible build environment with python-for-android.
 
-It is meant to allow testing various Android SDK, NDK and python version
-combinations quickly.
+It is meant to allow testing & configuring the builds of apps with various
+Android SDK, NDK and python version combinations quickly.
 
 ### Usage
 
