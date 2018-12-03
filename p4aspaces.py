@@ -28,7 +28,7 @@ def main():
         "as present in the repo", dest="force_p4a_redownload")
     argparser.add_argument("--cmd",
         help="The command to run, defaults to 'bash'. If you want to " +
-        "just build the demo app, replace with 'demobuild' (which will " +
+        "just build the demo app, replace with 'testbuild' (which will " +
         "automatically write it's result to the --output target)",
         default="bash", dest="cmd")
     argparser.add_argument("--output",

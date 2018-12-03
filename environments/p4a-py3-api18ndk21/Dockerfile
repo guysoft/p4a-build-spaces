@@ -3,6 +3,10 @@ FROM ubuntu
 
 ENV SDK_TOOLS="sdk-tools-linux-4333796.zip"
 ENV NDK_DL="https://dl.google.com/android/repository/android-ndk-r17c-linux-x86_64.zip"
+ENV NDKVER=r17c
+ENV NDKDIR=/ndk/
+ENV NDKAPI=21
+ENV ANDROIDAPI=28
 
 # Basic image upgrade:
 RUN apt update --fix-missing && apt upgrade -y

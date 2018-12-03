@@ -15,15 +15,16 @@ import json\n\
 print("echo \"\"")\n\
 print("echo \"To build a kivy demo app, use this command:\"")\n\
 print("echo \"cd ~/testapp && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=kivy,python3 --private .\"")\n\
-print("alias demobuild=\"cd ~/testapp && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=kivy,python3 --private . && copy *.apk ~/output\"")\n\
+print("shopt -s expand_aliases")\n\
+print("alias testbuild=\"cd ~/testapp && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=kivy,python3 --private . && copy *.apk ~/output\"")\n\
 launch_cmd="{LAUNCH_CMD}"\n\
-print("ANDROIDAPI=28" +\n\
-    " ANDROIDNDKVER=r17c" +\n\
-    " NDKAPI=21" +\n\
+print("export ANDROIDAP='$ANDROIDAPI'" +\n\
+    " ANDROIDNDKVER='$NDKVER'" +\n\
+    " NDKAPI='$NDKAPI'" +\n\
     " GRADLE_OPTS=\"-Xms1724m -Xmx5048m -Dorg.gradle.jvmargs='"'"'-Xms1724m -Xmx5048m'"'"'\""+\n\
     " JAVA_OPTS=\"-Xms1724m -Xmx5048m\"" +\n\
-    " ANDROIDSDK=/sdk-install/ ANDROIDNDK=/ndk/" +\n\
-    " " + launch_cmd)' > /cmdline.py
+    " ANDROIDSDK=/sdk-install/ ANDROIDNDK=\"'$NDKDIR'\"")\n\
+print(launch_cmd)' > /cmdline.py
 
 CMD bash -c "`python3 /cmdline.py`"
 
