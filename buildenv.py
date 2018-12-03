@@ -93,15 +93,15 @@ class BuildEnvironment(object):
 
             # Launch shell:
             workspace_volume_args = []
-            if args.workspace != None:
+            if workspace != None:
                 workspace_volume_args += ["-v",
-                    os.path.abspath(args.workspace) +
+                    os.path.abspath(workspace) +
                     ":/root/workspace:rw,Z"]
             cmd = ["docker", "run",
-                "--name" + container_name, "-ti",
-                "-v", os.path.join(temp_d, "output")] +\
+                "--name", container_name, "-ti",
+                "-v", os.path.join(temp_d, "output") +
+                ":/root/output:rw,Z"] +\
                 workspace_volume_args + [
-                ":/root/output:rw,Z",
                 image_name]
             subprocess.call(cmd)
             if output_file is not None:
