@@ -26,6 +26,11 @@ def main():
         help="Force docker to rebuild from the p4a download step " +
         "(previous step remain cached), to ensure the newest version " +
         "as present in the repo", dest="force_p4a_redownload")
+    argparser.add_argument("--workspace",
+        help="Specify a workspace directory to be mounted into the " +
+        "build environment at ~/workspace. If not specified, there " +
+        "will be no access to files outside of the container",
+        default=None, dest="workspace", nargs="?")
     argparser.add_argument("--cmd",
         help="The command to run, defaults to 'bash'. If you want to " +
         "just build the demo app, replace with 'testbuild' (which will " +
@@ -82,7 +87,8 @@ def main():
     # Launch it:
     env.p4a_target = dl_target
     env.launch_shell(force_p4a_refetch=args.force_p4a_redownload,
-        output_file=args.output_file, launch_cmd=args.cmd)
+        output_file=args.output_file, launch_cmd=args.cmd,
+        workspace=args.workspace)
 
 if __name__ == "__main__":
     main()

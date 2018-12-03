@@ -24,7 +24,8 @@ class BuildEnvironment(object):
             encoding="utf-8"
         ).read().strip().partition("\n")[0]
 
-    def get_docker_file(self, force_p4a_refetch=False, launch_cmd="bash"):
+    def get_docker_file(self, force_p4a_refetch=False, launch_cmd="bash",
+            start_dir="/root/"):
         image_name = "p4atestenv-" + str(self.name)
 
         # Obtain p4a build uuid (to control docker caching):
@@ -62,10 +63,11 @@ class BuildEnvironment(object):
                 "{LAUNCH_CMD}",
                 launch_cmd.replace("\\", "\\\\").replace(
                 "\"", "\\\"").replace("\n", "\\n").replace(
-                "\r", "\\r").replace("'", "'\"'\"'"))
+                "\r", "\\r").replace("'", "'\"'\"'")).replace(
+                "{START_DIR}", start_dir)
 
     def launch_shell(self, force_p4a_refetch=False, launch_cmd="bash",
-            output_file=None):
+            output_file=None, workspace=None):
         # Build container:
         image_name = "p4atestenv-" + str(self.name)
         container_name = image_name + "-" +\
@@ -74,9 +76,12 @@ class BuildEnvironment(object):
         try:
             os.mkdir(os.path.join(temp_d, "output"))
             with open(os.path.join(temp_d, "Dockerfile"), "w") as f:
-                f.write(self.get_docker_file(force_p4a_refetch=\
-                                             force_p4a_refetch,
-                                             launch_cmd=launch_cmd))
+                f.write(self.get_docker_file(
+                    force_p4a_refetch=force_p4a_refetch,
+                    launch_cmd=launch_cmd,
+                    start_dir=("/root/" if workspace is None else \
+                                        "/root/workspace/")
+                ))
             
             # Build container:
             cmd = ["docker", "build",
@@ -87,9 +92,15 @@ class BuildEnvironment(object):
                 sys.exit(1)
 
             # Launch shell:
+            workspace_volume_args = []
+            if args.workspace != None:
+                workspace_volume_args += ["-v",
+                    os.path.abspath(args.workspace) +
+                    ":/root/workspace:rw,Z"]
             cmd = ["docker", "run",
                 "--name" + container_name, "-ti",
-                "-v", os.path.join(temp_d, "output") +
+                "-v", os.path.join(temp_d, "output")] +\
+                workspace_volume_args + [
                 ":/root/output:rw,Z",
                 image_name]
             subprocess.call(cmd)
