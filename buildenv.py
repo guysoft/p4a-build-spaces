@@ -3,6 +3,7 @@ import os
 from .settings import settings
 import shutil
 import subprocess
+import sys
 import tempfile
 import uuid
 import urllib.parse
@@ -23,7 +24,7 @@ class BuildEnvironment(object):
             encoding="utf-8"
         ).read().strip().partition("\n")[0]
 
-    def get_docker_file(self, force_p4a_refetch=False):
+    def get_docker_file(self, force_p4a_refetch=False, launch_cmd="bash"):
         image_name = "p4atestenv-" + str(self.name)
 
         # Obtain p4a build uuid (to control docker caching):
@@ -57,16 +58,23 @@ class BuildEnvironment(object):
                 "pip3 install -U '" + str(
                 dl_target.replace("'", "'\"'\"'")) + "'  # " +
                 "p4a build " + str(build_p4a_uuid)).replace(
-                "{TEST_APP_INSTRUCTIONS}", test_app_instructions)
+                "{TEST_APP_INSTRUCTIONS}", test_app_instructions).replace(
+                "{LAUNCH_CMD}",
+                launch_cmd.replace("\\", "\\\\").replace(
+                "\"", "\\\"").replace("\n", "\\n").replace(
+                "\r", "\\r").replace("'", "'\"'\"'"))
 
-    def launch_shell(self, force_p4a_refetch=False):
+    def launch_shell(self, force_p4a_refetch=False, launch_cmd="bash",
+            output_file=None):
         # Build container:
         image_name = "p4atestenv-" + str(self.name)
         temp_d = tempfile.mkdtemp(prefix="p4a-testing-space-")
         try:
+            os.mkdir(os.path.join(temp_d, "output"))
             with open(os.path.join(temp_d, "Dockerfile"), "w") as f:
                 f.write(self.get_docker_file(force_p4a_refetch=\
-                                             force_p4a_refetch))
+                                             force_p4a_refetch,
+                                             launch_cmd=launch_cmd))
             
             # Build container:
             cmd = ["docker", "build",
@@ -77,8 +85,17 @@ class BuildEnvironment(object):
                 sys.exit(1)
 
             # Launch shell:
-            cmd = ["docker", "run", "-ti", image_name]
+            cmd = ["docker", "run", "-ti",
+                "-v", os.path.join(temp_d, "output") +
+                ":/root/output:rw,Z",
+                image_name]
             subprocess.call(cmd)
+            if output_file is not None:
+                for f in os.listdir(os.path.join(temp_d, "output")):
+                    full_path = os.path.join(temp_d, "output", f)
+                    if not os.path.isdir(full_path) and f.endswith(".apk"):
+                        shutil.copyfile(full_path, output_file)
+                        return
         finally:
             shutil.rmtree(temp_d)
 

@@ -26,6 +26,16 @@ def main():
         help="Force docker to rebuild from the p4a download step " +
         "(previous step remain cached), to ensure the newest version " +
         "as present in the repo", dest="force_p4a_redownload")
+    argparser.add_argument("--cmd",
+        help="The command to run, defaults to 'bash'. If you want to " +
+        "just build the demo app, replace with 'demobuild' (which will " +
+        "automatically write it's result to the --output target)",
+        default="bash", dest="cmd")
+    argparser.add_argument("--output",
+        help="Path where to place any .apk encountered after the " +
+        "build inside the build environments internal ~/output folder",
+        default=None, nargs="?",
+        dest="output_file")
     argparser.add_argument("--p4a",
         default=None, nargs="?",
         help="Specify p4a release archive to use, or the branch " +
@@ -71,7 +81,8 @@ def main():
 
     # Launch it:
     env.p4a_target = dl_target
-    env.launch_shell(force_p4a_refetch=args.force_p4a_redownload)
+    env.launch_shell(force_p4a_refetch=args.force_p4a_redownload,
+        output_file=args.output_file, launch_cmd=args.cmd)
 
 if __name__ == "__main__":
     main()
