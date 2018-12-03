@@ -20,7 +20,7 @@ RUN $PIP install -U cython
 
 # Install Android SDK:
 RUN mkdir /sdk-install/
-RUN cd /sdk-install && wget https://dl.google.com/android/repository/${SDK_TOOLS}
+RUN cd /sdk-install && wget --read-timeout=5 --retries=0 https://dl.google.com/android/repository/${SDK_TOOLS}
 RUN cd /sdk-install && unzip ./sdk-tools-*.zip && chmod +x ./tools//bin/sdkmanager
 RUN yes | /sdk-install/tools/bin/sdkmanager --licenses
 RUN /sdk-install/tools/bin/sdkmanager --update

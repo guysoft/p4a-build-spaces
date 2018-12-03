@@ -26,6 +26,10 @@ def main():
         help="Force docker to rebuild from the p4a download step " +
         "(previous step remain cached), to ensure the newest version " +
         "as present in the repo", dest="force_p4a_redownload")
+    argparser.add_argument("--force-rebuild",
+        default=False, action="store_true",
+        help="Force docker to rebuild entire image from scratch, " +
+        "without using any caching", dest="clean_image_rebuild")
     argparser.add_argument("--workspace",
         help="Specify a workspace directory to be mounted into the " +
         "build environment at ~/workspace. If not specified, there " +
@@ -88,7 +92,8 @@ def main():
     env.p4a_target = dl_target
     env.launch_shell(force_p4a_refetch=args.force_p4a_redownload,
         output_file=args.output_file, launch_cmd=args.cmd,
-        workspace=args.workspace)
+        workspace=args.workspace,
+        clean_image_rebuild=args.clean_image_rebuild)
 
 if __name__ == "__main__":
     main()

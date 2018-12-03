@@ -69,7 +69,7 @@ class BuildEnvironment(object):
                     "VOLUME /root/workspace/")
 
     def launch_shell(self, force_p4a_refetch=False, launch_cmd="bash",
-            output_file=None, workspace=None):
+            output_file=None, workspace=None, clean_image_rebuild=False):
         # Build container:
         image_name = "p4atestenv-" + str(self.name)
         container_name = image_name + "-" +\
@@ -87,7 +87,10 @@ class BuildEnvironment(object):
                 ))
             
             # Build container:
-            cmd = ["docker", "build",
+            no_cache_opts = []
+            if clean_image_rebuild:
+                no_cache_opts.append("--no-cache")
+            cmd = ["docker", "build"] + no_cache_opts + [
                 "-t", image_name, "--file", os.path.join(
                 temp_d, "Dockerfile"), "."]
             if subprocess.call(cmd, cwd=temp_d) != 0:
