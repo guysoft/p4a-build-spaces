@@ -25,7 +25,7 @@ class BuildEnvironment(object):
         ).read().strip().partition("\n")[0]
 
     def get_docker_file(self, force_p4a_refetch=False, launch_cmd="bash",
-            start_dir="/root/"):
+            start_dir="/root/", add_workspace=False):
         image_name = "p4atestenv-" + str(self.name)
 
         # Obtain p4a build uuid (to control docker caching):
@@ -64,10 +64,13 @@ class BuildEnvironment(object):
                 launch_cmd.replace("\\", "\\\\").replace(
                 "\"", "\\\"").replace("\n", "\\n").replace(
                 "\r", "\\r").replace("'", "'\"'\"'")).replace(
-                "{START_DIR}", start_dir)
+                "{START_DIR}", start_dir).replace(
+                "{WORKSPACE_VOLUME}", "" if not add_workspace else \
+                    "VOLUME /root/workspace/")
 
     def launch_shell(self, force_p4a_refetch=False, launch_cmd="bash",
             output_file=None, workspace=None):
+        print(" ---> WORKSPACE: " + str(workspace))
         # Build container:
         image_name = "p4atestenv-" + str(self.name)
         container_name = image_name + "-" +\

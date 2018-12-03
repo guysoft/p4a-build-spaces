@@ -7,7 +7,9 @@ RUN cp -R /tmp/test-app/testapps/testapp_keyboard/ /root/testapp/
 RUN mkdir /root/output
 VOLUME /root/output
 
-WORKDIR /root
+# Workspace folder:
+{WORKSPACE_VOLUME}
+WORKDIR {START_DIR}
 
 # Final command line preparation:
 RUN echo '#!/usr/bin/python3\n\
