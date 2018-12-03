@@ -27,7 +27,7 @@ RUN /sdk-install/tools/bin/sdkmanager --update
 RUN /sdk-install/tools/bin/sdkmanager "platform-tools" "platforms;android-19" "ndk-bundle" "build-tools;25.0.2"
 
 # Get CrystaX NDK:
-RUN mkdir -p /crystax-ndk && cd /crystax-ndk && wget --no-verbose https://www.crystax.net/download/${CRYSTAX_FILE}.tar.xz -O crystax.tar.xz && tar xf crystax.tar.xz \
+RUN mkdir -p /crystax-ndk && cd /crystax-ndk && wget --read-timeout=5 --tries=0 https://www.crystax.net/download/${CRYSTAX_FILE}.tar.xz -O crystax.tar.xz && tar xf crystax.tar.xz \
     --exclude='crystax-ndk-*/docs'\
     --exclude='crystax-ndk-*/samples'\
     --exclude='crystax-ndk-*/tests'\
