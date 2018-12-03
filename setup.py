@@ -14,7 +14,7 @@ setup(
         "and build environments for python-for-android",
     packages=["p4aspaces"],
     entry_points={
-        "console_scripts": ["p4aspaces=p4aspaces.p4aspaces"],
+        "console_scripts": ["p4aspaces=p4aspaces.p4aspaces:main"],
     },
     include_package_data=True,
     package_dir={'p4aspaces': ''},

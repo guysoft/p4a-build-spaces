@@ -106,5 +106,8 @@ def main():
         subprocess.call(cmd)
     finally:
         shutil.rmtree(temp_d)
-main()
+
+if __name__ == "__main__":
+    main()
+
 
