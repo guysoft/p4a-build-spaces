@@ -19,10 +19,10 @@ your testing environment!
 
 You can choose an environment with launch arguments right away:
 
-Example: `./p4aspaces.py --env p4a-py3-api18ndk21 --p4a master`
+Example: `./p4aspaces.py --env p4a-py3-api28ndk21 --p4a master`
 
-(Uses `p4a`'s master branch from github with environment
-`p4a-py3-api18ndk21`. Use `./p4aspaces.py --list-environments` for
+(Prepares `p4a`'s master branch from github with environment
+`p4a-py3-api28ndk21`. Use `./p4aspaces.py --list-environments` for
 a full list.)
 
 #### Cleanup
