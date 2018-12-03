@@ -1,25 +1,43 @@
 
 ## p4a build spaces
 
-This project contains a script & various Dockerfile's to launch an interactive
-shell with a reproducible build environment with python-for-android.
+**`p4a-build-spaces` allows you to launch an interactive
+shell** with a reproducible build and test environment with
+[https://github.com/kivy/python-for-android](python-for-android).
 
-It is meant to allow testing & configuring the builds of apps with various
-Android SDK, NDK and python version combinations quickly.
+**Still in development / unstable.**
 
 ### Usage
 
+#### Install
+
+Run:
+
+`pip install -U https://github.com/JonasT/p4a-build-spaces/archive/master.zip`
+
+... to install the latest dev version (unstable!).
+**(If you have both Python 2 and Python 3 pip, make sure to install with `pip3`!)**
+
 #### Interactive Environment Choice
 
-Run `./p4aspaces.py` which will ask you for the environment interactively.
+Run:
+
+`p4spaces`
+
+You will be prompted for the environment interactively.
 After setup has completed, you will be dropped to a `bash` shell inside
 your testing environment!
 
+**Don't forget that all file changes are temporary and will be lost once
+the environment terminates, unless you added a `--workspace`.**
+
 #### Arguments Quick Setup
 
-You can choose an environment with launch arguments right away:
+Run:
 
-Example: `./p4aspaces.py --env p4a-py3-api28ndk21 --p4a master`
+`p4aspaces --env p4a-py3-api28ndk21 --p4a master`
+
+...or similar, to skip the interactive part and get an env right away.
 
 (Prepares `p4a`'s master branch from github with environment
 `p4a-py3-api28ndk21`. Use `./p4aspaces.py --list-environments` for
