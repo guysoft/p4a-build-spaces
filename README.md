@@ -7,9 +7,7 @@ shell** with a reproducible build and test environment with
 
 **Still in development / unstable.**
 
-### Usage
-
-#### Install
+### Installation
 
 Run:
 
@@ -18,7 +16,7 @@ Run:
 ... to install the latest dev version (unstable!).
 **(If you have both Python 2 and Python 3 pip, make sure to install with `pip3`!)**
 
-#### Interactive Environment Choice
+### Launch
 
 Run:
 
@@ -31,7 +29,7 @@ your testing environment!
 **Don't forget that all file changes are temporary and will be lost once
 the environment terminates, unless you added a `--workspace`.**
 
-#### Arguments Quick Setup
+### Launch Quickly
 
 Run:
 
@@ -43,7 +41,7 @@ Run:
 `p4a-py3-api28ndk21`. Use `./p4aspaces.py --list-environments` for
 a full list.)
 
-#### Cleanup
+### Cleanup
 
 Please note the docker images will be left around, one per environment
 you used. Also, the containers will be left around.
