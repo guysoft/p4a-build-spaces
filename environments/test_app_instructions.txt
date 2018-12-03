@@ -8,7 +8,7 @@ RUN echo '#!/usr/bin/python3\n\
 import json\n\
 print("echo \"\"")\n\
 print("echo \"To build a kivy demo app, use this command:\"")\n\
-print("echo \"cd ~/testapp && p4a apk --arch=armeabi-v7a  --requirements=kivy,python3\"")\n\
+print("echo \"cd ~/testapp && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=kivy,python3 --private .\"")\n\
 print("ANDROIDAPI=28" +\n\
     " ANDROIDNDKVER=r17c" +\n\
     " NDKAPI=21" +\n\

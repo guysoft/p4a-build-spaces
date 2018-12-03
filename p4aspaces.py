@@ -19,7 +19,7 @@ def main():
         default=None, nargs="?",
         help="Specify an environment to use. If not specified, " +
         "it will be prompted for interactively", dest="env")
-    argparser.add_argument("--p4a-url",
+    argparser.add_argument("--p4a",
         default=None, nargs="?",
         help="Specify p4a release archive to use, or the branch " +
         "name (like 'master'). Will be prompted for interactively " +

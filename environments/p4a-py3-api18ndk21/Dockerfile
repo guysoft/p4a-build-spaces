@@ -8,7 +8,10 @@ ENV NDK_DL="https://dl.google.com/android/repository/android-ndk-r17c-linux-x86_
 RUN apt update --fix-missing && apt upgrade -y
 
 # Install base packages
-RUN apt update && apt install -y zip python3 python-pip cython3 python cython python3-virtualenv python-virtualenv python3-pip curl wget lbzip2 bsdtar && dpkg --add-architecture i386 && apt update && apt install -y build-essential libstdc++6:i386 zlib1g-dev zlib1g:i386 openjdk-8-jdk libncurses5:i386 && apt install -y libtool automake autoconf unzip pkg-config git ant gradle rsync
+RUN apt update && apt install -y zip python3 python-pip python python3-virtualenv python-virtualenv python3-pip curl wget lbzip2 bsdtar && dpkg --add-architecture i386 && apt update && apt install -y build-essential libstdc++6:i386 zlib1g-dev zlib1g:i386 openjdk-8-jdk libncurses5:i386 && apt install -y libtool automake autoconf unzip pkg-config git ant gradle rsync
+
+# Install python extra tools:
+RUN pip3 install -U cython
 
 # Install Android SDK:
 RUN mkdir /sdk-install/
