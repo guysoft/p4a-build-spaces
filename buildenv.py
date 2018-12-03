@@ -70,7 +70,6 @@ class BuildEnvironment(object):
 
     def launch_shell(self, force_p4a_refetch=False, launch_cmd="bash",
             output_file=None, workspace=None):
-        print(" ---> WORKSPACE: " + str(workspace))
         # Build container:
         image_name = "p4atestenv-" + str(self.name)
         container_name = image_name + "-" +\
@@ -83,7 +82,8 @@ class BuildEnvironment(object):
                     force_p4a_refetch=force_p4a_refetch,
                     launch_cmd=launch_cmd,
                     start_dir=("/root/" if workspace is None else \
-                                        "/root/workspace/")
+                                        "/root/workspace/"),
+                    add_workspace=(workspace is not None),
                 ))
             
             # Build container:
