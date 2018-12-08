@@ -1,0 +1,16 @@
+#!/usr/bin/python3
+
+import os
+import sys
+
+# Workaround for running it from local folder:
+if os.path.exists(os.path.join(
+        os.path.abspath(os.path.dirname(__file__)),
+        "src", "p4aspaces")):
+    sys.path = [os.path.abspath(os.path.join(
+        os.path.dirname(__file__), "src"))] + sys.path
+from p4aspaces.main import main
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
+

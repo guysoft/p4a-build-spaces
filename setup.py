@@ -2,6 +2,7 @@
 
 import os
 from setuptools import setup, Extension, Command
+import setuptools
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -12,16 +13,18 @@ setup(
     author="p4a build spaces team",
     description="A tool for quickly setting up testing " +
         "and build environments for python-for-android",
-    packages=["p4aspaces"],
     entry_points={
-        "console_scripts": ["p4aspaces=p4aspaces.p4aspaces:main"],
+        "console_scripts": ["p4aspaces=p4aspaces.main:main"],
     },
     include_package_data=True,
-    package_dir={'p4aspaces': ''},
+    package_dir={'':'src'},
+    packages=["p4aspaces"] + ["p4aspaces." + p
+        for p in setuptools.find_packages("./src/p4aspaces")],
     package_data={
         "p4aspaces":  \
             ["environments/" + env + "/*" for env in os.listdir(
-                os.path.join(os.path.dirname(__file__), "environments"))] +\
+                os.path.join(os.path.dirname(__file__),
+                "src", "p4aspaces", "environments"))] +\
             [
                 "environments/*.txt",
                 "Dockerfile",

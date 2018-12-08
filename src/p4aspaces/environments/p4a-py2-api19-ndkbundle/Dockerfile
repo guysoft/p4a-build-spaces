@@ -7,6 +7,7 @@ ENV NDKVER=r17c
 ENV NDKDIR=/ndk/
 ENV NDKAPI=21
 ENV ANDROIDAPI=28
+ENV PIP=pip2
 
 # Basic image upgrade:
 RUN apt update --fix-missing && apt upgrade -y

@@ -18,35 +18,27 @@ Run:
 
 ### Launch
 
-Run:
+1. List environments: `p4spaces list-envs`
+2. Launch shell with your choice: `p4aspaces shell p4a-py3-api28ndk21`
 
-`p4spaces`
+**Important note:**
 
-You will be prompted for the environment interactively.
-After setup has completed, you will be dropped to a `bash` shell inside
-your testing environment!
+All file changes are temporary and will be lost once
+the environment terminates, unless you added a `--workspace`.
 
-**Don't forget that all file changes are temporary and will be lost once
-the environment terminates, unless you added a `--workspace`.**
+*Note for testing:*
 
-### Launch Quickly
-
-Run:
-
-`p4aspaces --env p4a-py3-api28ndk21 --p4a master`
-
-...or similar, to skip the interactive part and get an env right away.
-
-(This command uses `p4a`'s master branch from github, with environment
-`p4a-py3-api28ndk21`. Use `p4aspaces --list-environments` for
-a full list and a short explanation for each.)
+You can run directly out of the `p4a-build-spaces` development folder
+without installing the package by doing `chmod +x ./p4aspaces`,
+then using `./p4aspaces` (instead of the system-wide `p4sapaces`).
 
 ### Cleanup
 
 Please note the docker images will be left around, one per environment
-you used. Also, the containers will be left around.
+you used. Also, the containers will be terminated, but also left around.
+This will use up disk space.
 
-To clean up, use: `sudo docker system prune`
+To remove the used disk space, use: `sudo docker system prune`
 
 **(warning: if you use docker for something else, stopped containers
 and unused volumes of that may be removed as well!!)**
