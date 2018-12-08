@@ -21,7 +21,7 @@ shell** with a reproducible build and test environment with
 **Important:** All file changes are temporary and will be lost once
 the environment terminates, unless you added a `--workspace`.
 
-### Running without install
+### Launch without install
 
 You can run directly out of the `p4a-build-spaces` extracted tarball /
 development folder without installing system-wide. Just use:
