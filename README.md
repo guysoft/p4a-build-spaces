@@ -9,12 +9,9 @@ shell** with a reproducible build and test environment with
 
 ### Installation
 
-Run:
-
 `pip install -U https://github.com/JonasT/p4a-build-spaces/archive/master.zip`
 
-... to install the latest dev version (unstable!).
-**If you have both Python 2 and Python 3 pip, make sure to install with `pip3`!**
+**If you have both `pip2`/`pip3`, use `pip3`!** (Python 2 is not supported)
 
 ### Launch
 
