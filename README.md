@@ -21,16 +21,16 @@ Run:
 1. List environments: `p4spaces list-envs`
 2. Launch shell with your choice: `p4aspaces shell p4a-py3-api28ndk21`
 
-**Important note:**
-
-All file changes are temporary and will be lost once
+**Important:** All file changes are temporary and will be lost once
 the environment terminates, unless you added a `--workspace`.
 
-*Note for testing:*
+### Running without install
 
-You can run directly out of the `p4a-build-spaces` development folder
-without installing the package by doing `chmod +x ./p4aspaces`,
-then using `./p4aspaces` (instead of the system-wide `p4sapaces`).
+You can run directly out of the `p4a-build-spaces` extracted tarball /
+development folder without installing system-wide. Just use:
+
+  1. `chmod +x ./p4aspaces`,
+  2. `./p4aspaces ...` (instead of `p4sapaces`).
 
 ### Cleanup
 
