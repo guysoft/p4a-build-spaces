@@ -94,7 +94,8 @@ class BuildEnvironment(object):
                 "-t", image_name, "--file", os.path.join(
                 temp_d, "Dockerfile"), "."]
             if subprocess.call(cmd, cwd=temp_d) != 0:
-                print("ERROR: build failed.", file=sys.stderr)
+                print("p4spaces: error: build failed.",
+                    file=sys.stderr)
                 sys.exit(1)
 
             # Launch shell:

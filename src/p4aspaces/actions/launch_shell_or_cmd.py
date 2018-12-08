@@ -67,7 +67,7 @@ def launch_shell_or_cmd(args, shell=False):
             stderr=subprocess.STDOUT)
     except (subprocess.CalledProcessError,
             FileNotFoundError) as e:
-        print("ERROR: `docker ps` test command failed. " +
+        print("p4aspaces: error: `docker ps` test command failed. " +
             "\n       Is docker running, and do we have access?",
             file=sys.stderr, flush=True)
         sys.exit(1)
@@ -75,7 +75,7 @@ def launch_shell_or_cmd(args, shell=False):
     # Choose environment:
     env_name = args.env
     if len([env for env in envs if env.name == env_name]) == 0:
-        print("ERROR: Not a known environment. Aborting.",
+        print("p4aspaces: error: Not a known environment. Aborting.",
               file=sys.stderr, flush=True)
         sys.exit(1)
     env = [env for env in envs if env.name == env_name][0]

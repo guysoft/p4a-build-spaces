@@ -15,6 +15,10 @@ def list_envs(args):
     envs = buildenv.get_environments()
     print("Available environments:")
     for env in envs:
-        print(" " + env.name + "\n     " + env.description)
+        print("  " + env.name + "\n     " + env.description)
+    print("")
+    print("Launch shell with:\n" +
+        "  p4aspaces shell " +
+        sorted([env.name for env in envs])[0])
     sys.exit(0)
 
