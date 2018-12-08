@@ -1,0 +1,1 @@
+Python 2 with target API 28, bundled NDK 21, min api 21

@@ -1,1 +1,1 @@
-Python 3 with min/target API 28, NDK 21
+Python 3 with target API 28, NDK 21, min api 21
