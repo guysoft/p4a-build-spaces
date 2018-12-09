@@ -20,11 +20,11 @@ print("echo \"To build a kivy demo app, use this command:\"")\n\
 if os.environ["PIP"] == "pip2":\n\
     print("echo \"cd ~/testapp && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=kivy,python2 --private .\"")\n\
     print("shopt -s expand_aliases")\n\
-    print("alias testbuild=\"cd ~/testapp && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=kivy,python2 --private . && copy *.apk ~/output\"")\n\
+    print("alias testbuild=\"cd ~/testapp && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=kivy,python2 --private . && cp *.apk ~/output\"")\n\
 else:\n\
     print("echo \"cd ~/testapp && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=kivy,python3 --private .\"")\n\
     print("shopt -s expand_aliases")\n\
-    print("alias testbuild=\"cd ~/testapp && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=kivy,python3 --private . && copy *.apk ~/output\"")\n\
+    print("alias testbuild=\"cd ~/testapp && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=kivy,python3 --private . && cp *.apk ~/output\"")\n\
 launch_cmd="{LAUNCH_CMD}"\n\
 print("export ANDROIDAP='$ANDROIDAPI'" +\n\
     " ANDROIDNDKVER='$NDKVER'" +\n\
