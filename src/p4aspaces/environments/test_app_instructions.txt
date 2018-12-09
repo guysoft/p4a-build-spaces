@@ -27,7 +27,6 @@ else:\n\
     print("echo \"cd ~/testapp-sdl2-keyboard && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=kivy,python3 --private .\"")\n\
     print("shopt -s expand_aliases")\n\
     print("alias testbuild=\"cd ~/testapp-sdl2-keyboard && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=kivy,python3 --private . && cp *.apk ~/output\"")\n\
-launch_cmd="{LAUNCH_CMD}"\n\
     print("alias testbuild_webview=\"cd ~/testapp-webview-flask && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=python3,webview --private . && cp *.apk ~/output\"")\n\
 launch_cmd="{LAUNCH_CMD}"\n\
 print("export ANDROIDAP='$ANDROIDAPI'" +\n\
