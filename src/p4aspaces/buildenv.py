@@ -54,19 +54,28 @@ class BuildEnvironment(object):
         with open(os.path.join(self.envs_dir, "test_app_instructions.txt"),
                   "r") as f:
             test_app_instructions = f.read().strip()
+        with open(os.path.join(self.envs_dir, "install_shared_packages.txt"),
+                  "r") as f:
+            install_shared_instructions = f.read().strip()
         with open(os.path.join(self.path, "Dockerfile"), "r") as f:
-            return f.read().replace("{P4A_INSTALL_CMD}",
+            t = f.read()
+            t = t.replace("{P4A_INSTALL_CMD}",
                 "$PIP install -U '" + str(
                 dl_target.replace("'", "'\"'\"'")) + "'  # " +
-                "p4a build " + str(build_p4a_uuid)).replace(
+                "p4a build " + str(build_p4a_uuid))
+            t = t.replace(
                 "{TEST_APP_INSTRUCTIONS}", test_app_instructions).replace(
+                "{INSTALL_SHARED_PACKAGES}", install_shared_instructions)
+            t = t.replace(
                 "{LAUNCH_CMD}",
                 launch_cmd.replace("\\", "\\\\").replace(
                 "\"", "\\\"").replace("\n", "\\n").replace(
-                "\r", "\\r").replace("'", "'\"'\"'")).replace(
+                "\r", "\\r").replace("'", "'\"'\"'"))
+            t = t.replace(
                 "{START_DIR}", start_dir).replace(
                 "{WORKSPACE_VOLUME}", "" if not add_workspace else \
                     "VOLUME /root/workspace/")
+            return t
 
     def launch_shell(self, force_p4a_refetch=False, launch_cmd="bash",
             output_file=None, workspace=None, clean_image_rebuild=False):

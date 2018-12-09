@@ -15,9 +15,6 @@ RUN apt update --fix-missing && apt upgrade -y
 # Install base packages
 RUN apt update && apt install -y zip python3 python-pip python python3-virtualenv python-virtualenv python3-pip curl wget lbzip2 bsdtar && dpkg --add-architecture i386 && apt update && apt install -y build-essential libstdc++6:i386 zlib1g-dev zlib1g:i386 openjdk-8-jdk libncurses5:i386 && apt install -y libtool automake autoconf unzip pkg-config git ant gradle rsync
 
-# Install python extra tools:
-RUN $PIP install -U cython
-
 # Install Android SDK:
 RUN mkdir /sdk-install/
 RUN cd /sdk-install && wget --read-timeout=5 --tries=0 https://dl.google.com/android/repository/${SDK_TOOLS}
@@ -35,6 +32,9 @@ RUN mkdir -p /crystax-ndk && cd /crystax-ndk && wget --read-timeout=5 --tries=0 
     --strip-components=1 \
     && rm /crystax-ndk/crystax.tar.xz
 RUN ln -s /usr/bin/python3 /usr/bin/python3.5
+
+# Install shared packages:
+{INSTALL_SHARED_PACKAGES}
 
 # Install p4a:
 RUN {P4A_INSTALL_CMD}

@@ -1,0 +1,7 @@
+
+# Install buildozer and make sure Cython is up-to-date:
+RUN $PIP install -U buildozer Cython
+
+# Install webkit for use with webview bootstrap:
+RUN apt update && apt install -y libwebkit2gtk-4.0-dev gtk+-3.0
+

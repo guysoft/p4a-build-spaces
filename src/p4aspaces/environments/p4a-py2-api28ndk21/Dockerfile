@@ -15,9 +15,6 @@ RUN apt update --fix-missing && apt upgrade -y
 # Install base packages
 RUN apt update && apt install -y zip python3 python-pip python python3-virtualenv python-virtualenv curl wget lbzip2 bsdtar && dpkg --add-architecture i386 && apt update && apt install -y build-essential libstdc++6:i386 zlib1g-dev zlib1g:i386 openjdk-8-jdk libncurses5:i386 && apt install -y libtool automake autoconf unzip pkg-config git ant gradle rsync
 
-# Install python extra tools:
-RUN pip2 install -U cython
-
 # Install Android SDK:
 RUN mkdir /sdk-install/
 RUN cd /sdk-install && wget https://dl.google.com/android/repository/${SDK_TOOLS}
@@ -29,11 +26,11 @@ RUN /sdk-install/tools/bin/sdkmanager "platform-tools" "platforms;android-28" "b
 # Obtain Android NDK:
 RUN mkdir -p /tmp/ndk/ && cd /tmp/ndk/ && wget ${NDK_DL} && unzip -q android-ndk*.zip && mv android-*/ /ndk/
 
+# Install shared packages:
+{INSTALL_SHARED_PACKAGES}
+
 # Install p4a:
 RUN {P4A_INSTALL_CMD}
-
-# Install buildozer:
-RUN pip2 install -U buildozer
 
 {TEST_APP_INSTRUCTIONS}
 
