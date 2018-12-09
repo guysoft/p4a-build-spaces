@@ -3,6 +3,7 @@
 RUN mkdir -p /tmp/test-app/ && cd /tmp/test-app && git clone https://github.com/kivy/python-for-android/ .
 RUN cp -R /tmp/test-app/testapps/testapp_keyboard/ /root/testapp-sdl2-keyboard/
 RUN cp -R /tmp/test-app/testapps/testapp_flask/ /root/testapp-webview-flask/
+RUN cp -R /tmp/test-app/testapps/testapp_nogui/ /root/testapp-service_only-nogui/
 
 # Prepare output folder:
 RUN mkdir /root/output
@@ -23,11 +24,13 @@ if os.environ["PIP"] == "pip2":\n\
     print("shopt -s expand_aliases")\n\
     print("alias testbuild=\"cd ~/testapp-sdl2-keyboard && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=kivy,python2 --private . && cp *.apk ~/output\"")\n\
     print("alias testbuild_webview=\"cd ~/testapp-webview-flask && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=python2,webview --private . && cp *.apk ~/output\"")\n\
+    print("alias testbuild_serviceonly=\"cd ~/testapp-service_only-nogui && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=service_only,python3 --private . && cp *.apk ~/output\"")\n\
 else:\n\
     print("echo \"cd ~/testapp-sdl2-keyboard && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=kivy,python3 --private .\"")\n\
     print("shopt -s expand_aliases")\n\
     print("alias testbuild=\"cd ~/testapp-sdl2-keyboard && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=kivy,python3 --private . && cp *.apk ~/output\"")\n\
     print("alias testbuild_webview=\"cd ~/testapp-webview-flask && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=python3,webview --private . && cp *.apk ~/output\"")\n\
+    print("alias testbuild_serviceonly=\"cd ~/testapp-service_only-nogui && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=service_only,python3 --private . && cp *.apk ~/output\"")\n\
 launch_cmd="{LAUNCH_CMD}"\n\
 print("export ANDROIDAP='$ANDROIDAPI'" +\n\
     " ANDROIDNDKVER='$NDKVER'" +\n\
