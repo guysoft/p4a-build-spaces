@@ -1,1 +1,0 @@
-Python 3 Crystax with min/target API 26, and ndk-bundle for API 26

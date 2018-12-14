@@ -5,7 +5,7 @@ ENV CRYSTAX_FILE="crystax-ndk-10.3.2-linux-x86_64"
 ENV SDK_TOOLS="sdk-tools-linux-4333796.zip"
 ENV NDKVER=10.3.2
 ENV NDKDIR=/crystax-ndk/
-ENV NDKAPI=26
+ENV NDKAPI=21
 ENV ANDROIDAPI=26
 ENV PIP=pip3
 
