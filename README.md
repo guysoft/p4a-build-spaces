@@ -9,16 +9,19 @@ shell** with a reproducible build and test environment with
 
 ### Installation
 
-Install [https://docker.io](docker) first, e.g. as described here:
+1. Install [https://docker.io](docker), e.g. as described here:
+
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
 
-Then install p4a build spaces:
+2. install p4a build spaces:
 
 `pip install -U https://github.com/JonasT/p4a-build-spaces/archive/master.zip`
 
 **If you have both `pip2`/`pip3`, use `pip3`!** (Python 2 is not supported)
 
 ### Launch
+
+Before you launch, make sure docker is running! (`sudo service docker start`)
 
 1. List environments: `p4aspaces list-envs`
 2. Launch shell with your choice: `p4aspaces shell p4a-py3-api28ndk21`
