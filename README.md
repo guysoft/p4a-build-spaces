@@ -3,13 +3,13 @@
 
 **`p4a-build-spaces` allows you to launch an interactive
 shell** with a reproducible build and test environment with
-[https://github.com/kivy/python-for-android](python-for-android).
+[python-for-android](https://github.com/kivy/python-for-android).
 
 **Still in development / unstable.**
 
 ### Installation
 
-1. Install [https://docker.io](docker), e.g. as described here:
+1. Install [docker](https://docker.io), e.g. as described here:
 
    https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
 
