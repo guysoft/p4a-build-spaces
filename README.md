@@ -11,13 +11,13 @@ shell** with a reproducible build and test environment with
 
 1. Install [https://docker.io](docker), e.g. as described here:
 
-https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
+   https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
 
-2. install p4a build spaces:
+2. Install p4a build spaces:
 
-`pip install -U https://github.com/JonasT/p4a-build-spaces/archive/master.zip`
+   `pip install -U https://github.com/JonasT/p4a-build-spaces/archive/master.zip`
 
-**If you have both `pip2`/`pip3`, use `pip3`!** (Python 2 is not supported)
+   **If you have both `pip2`/`pip3`, use `pip3`!** (Python 2 is not supported)
 
 ### Launch
 
