@@ -25,6 +25,7 @@ Before you launch, make sure docker is running! (`sudo service docker start`)
 
 1. List environments: `p4aspaces list-envs`
 2. Launch shell with your choice: `p4aspaces shell p4a-py3-api28ndk21`
+   The first launch may take a longer amount of time!
 
 **Important:** All file changes are temporary and will be lost once
 the environment terminates, unless you added a `--workspace`.
