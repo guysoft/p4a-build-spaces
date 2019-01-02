@@ -27,7 +27,7 @@ RUN /sdk-install/tools/bin/sdkmanager "platform-tools" "platforms;android-28" "b
 RUN mkdir -p /tmp/ndk/ && cd /tmp/ndk/ && wget ${NDK_DL} && unzip -q android-ndk*.zip && mv android-*/ /ndk/
 
 # Install shared packages:
-{INSTALL_SHARED_PACKAGES
+{INSTALL_SHARED_PACKAGES}
 
 # Install p4a:
 RUN {P4A_INSTALL_CMD}
