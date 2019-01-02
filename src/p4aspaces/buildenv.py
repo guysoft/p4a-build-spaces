@@ -128,7 +128,11 @@ class BuildEnvironment(object):
                         return
         finally:
             try:
-                os.system("docker kill " + container_name)
+                os.system(
+                    "docker kill " + container_name +
+                    " > /dev/null 2>&1")
+                print("Removing container...")
+                os.system("docker rm " + container_name)
             finally:
                 shutil.rmtree(temp_d)
 
