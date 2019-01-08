@@ -9,9 +9,7 @@ shell** with a reproducible build and test environment with
 
 ### Installation
 
-1. Install [docker](https://docker.io), e.g. as described here:
-
-   https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
+1. Install [docker](https://docker.io), e.g. `docker.io` package on Ubuntu, or `docker` on Fedora Linux
 
 2. Install p4a build spaces:
 
