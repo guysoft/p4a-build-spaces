@@ -25,7 +25,8 @@ def main(args=None):
         nargs=argparse.REMAINDER,
         help="The arguments to the action. Use " +
         "\"p4aspaces <action> --help\" to see available " +
-        "arguments and options for an action.")
+        "arguments and options for an action, e.g. " +
+        "\"p4aspaces shell --help\"")
 
     if len(args) == 0:
         argparser.print_help(sys.stderr)
@@ -41,6 +42,11 @@ def main(args=None):
         print("       Available actions are:",
             file=sys.stderr, flush=True)
         print("        - " + "\n        - ".join(actions().keys()),
+            file=sys.stderr, flush=True)
+        print("       Get more detailed help on an action like this:",
+            file=sys.stderr, flush=True)
+        print("          p4aspaces " +
+            str(list(actions().keys())[0]) + " --help",
             file=sys.stderr, flush=True)
         sys.exit(1)
     actions()[args.action]["function"](args.arguments)

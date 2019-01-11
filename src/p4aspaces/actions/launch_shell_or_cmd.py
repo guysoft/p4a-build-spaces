@@ -17,7 +17,8 @@ def launch_shell_or_cmd(args, shell=False):
             str(actions()["cmd"]["description"]))
     argparser.add_argument("env",
         default=None, nargs=1,
-        help="Specify an environment to use.")
+        help="Specify an environment to use. Use 'p4aspaces list-envs' " +
+        "to list available environments")
     argparser.add_argument("--force-redownload-p4a",
         default=False, action="store_true",
         help="Force docker to rebuild from the p4a download step " +
@@ -45,8 +46,10 @@ def launch_shell_or_cmd(args, shell=False):
             dest="output_file")
     argparser.add_argument("--p4a",
         default=None, nargs="?",
-        help="Specify p4a release archive to use, or the branch " +
-        "name (like 'master'). Will be prompted for interactively " +
+        help="Specify p4a release archive to use " +
+        "(like 'https://github.com/kivy/python-for-android/" +
+        "archive/master.zip'), or the branch " +
+        "name (like 'master'). Will default to master branch " +
         "if unspecified", dest="p4a_url")
     args = argparser.parse_args(args)
     if shell:
