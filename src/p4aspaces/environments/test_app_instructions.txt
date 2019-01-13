@@ -9,8 +9,10 @@ RUN cp -R /tmp/test-app/testapps/testapp_nogui/ /root/testapp-service_only-nogui
 RUN mkdir /root/output
 VOLUME /root/output
 
-# Workspace folder:
+# Workspace folder (if used, otherwise the following line will be blank):
 {WORKSPACE_VOLUME}
+
+# Start directory:
 WORKDIR {START_DIR}
 
 # Final command line preparation:
@@ -38,7 +40,7 @@ print("export ANDROIDAP='$ANDROIDAPI'" +\n\
     " GRADLE_OPTS=\"-Xms1724m -Xmx5048m -Dorg.gradle.jvmargs='"'"'-Xms1724m -Xmx5048m'"'"'\""+\n\
     " JAVA_OPTS=\"-Xms1724m -Xmx5048m\"" +\n\
     " ANDROIDSDK=/sdk-install/ ANDROIDNDK=\"'$NDKDIR'\"")\n\
-print(launch_cmd)' > /cmdline.py
+print("CMD=\x27" + launch_cmd + "\x27")' > /cmdline.py
 
-CMD bash -c "`python3 /cmdline.py`"
+CMD bash -c "`python3 /cmdline.py`; exec $CMD"
 
