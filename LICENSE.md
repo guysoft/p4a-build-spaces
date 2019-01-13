@@ -1,4 +1,4 @@
-Copyright (c) 2018 p4a testing spaces team and others, see AUTHORS.md
+Copyright (c) 2018-2019 p4a-build-spaces team and others, see AUTHORS.md
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
