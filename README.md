@@ -15,7 +15,7 @@ shell** with a reproducible build and test environment with
 
    `pip install -U https://github.com/JonasT/p4a-build-spaces/archive/master.zip`
 
-   **If you have both `pip2`/`pip3`, use `pip3`!** (Python 2 is not supported)
+   **If you have both `pip2`/`pip3`, use `pip3`!** (Python 2 won't run p4aspaces properly)
 
 ### Launch
 
