@@ -16,6 +16,7 @@ VOLUME /root/output
 WORKDIR {START_DIR}
 
 # Final command line preparation:
+RUN echo '{LAUNCH_CMD}' > /tmp/launchcmd.txt
 RUN echo '#!/usr/bin/python3\n\
 import json\n\
 import os\n\
@@ -33,14 +34,20 @@ else:\n\
     print("alias testbuild=\"cd ~/testapp-sdl2-keyboard && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --requirements=kivy,python3 --private . && cp *.apk ~/output\"")\n\
     print("alias testbuild_webview=\"cd ~/testapp-webview-flask && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --bootstrap webview --requirements=python3,flask --private . && cp *.apk ~/output\"")\n\
     print("alias testbuild_service_only=\"cd ~/testapp-service_only-nogui && p4a apk --arch=armeabi-v7a --name test --package com.example.test --version 1 --bootstrap service_only --requirements=pyjnius,python3 --private . && cp *.apk ~/output\"")\n\
-launch_cmd="{LAUNCH_CMD}"\n\
+with open("/tmp/launchcmd.txt", "r") as f:\n\
+    import shlex\n\
+    args = shlex.split(f.read().strip())\n\
+    print("CMD=()")\n\
+    i = -1\n\
+    for arg in args:\n\
+        i += 1\n\
+        print("CMD[" + str(i) + "]=" + shlex.quote(arg))\n\
 print("export ANDROIDAP='$ANDROIDAPI'" +\n\
     " ANDROIDNDKVER='$NDKVER'" +\n\
     " NDKAPI='$NDKAPI'" +\n\
     " GRADLE_OPTS=\"-Xms1724m -Xmx5048m -Dorg.gradle.jvmargs='"'"'-Xms1724m -Xmx5048m'"'"'\""+\n\
     " JAVA_OPTS=\"-Xms1724m -Xmx5048m\"" +\n\
-    " ANDROIDSDK=/sdk-install/ ANDROIDNDK=\"'$NDKDIR'\"")\n\
-print("CMD=\x27" + launch_cmd.replace("\x27", "\x27\"\x27\"\x27") + "\x27")' > /cmdline.py
+    " ANDROIDSDK=/sdk-install/ ANDROIDNDK=\"'$NDKDIR'\"")' > /tmp/cmdline.py
 
-CMD bash -c "`python3 /cmdline.py`; exec $CMD"
+CMD ["bash", "-c", "python3 /tmp/cmdline.py > /tmp/launch.sh; source /tmp/launch.sh; exec \"${CMD[@]}\""]
 
