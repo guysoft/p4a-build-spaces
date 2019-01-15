@@ -2,8 +2,11 @@
 # Dependencies for extra python modules:
 RUN apt install -y libffi-dev libssl-dev
 
-# Install buildozer and make sure Cython is up-to-date:
-RUN $PIP install -U buildozer Cython
+# Install buildozer from master
+RUN $PIP install https://github.com/kivy/buildozer/archive/master.zip
+
+# make sure Cython is up-to-date:
+RUN $PIP install -U Cython
 
 # Install additional tools useful for all environments:
 RUN apt install -y cmake
